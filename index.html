@@ -132,8 +132,7 @@
 	<section id="about">
 		<h2>About the Map <map name=""></map></h2>
 		<p>This map shows wind turbine projects throughout the state of Illinois. Additional information about the U.S.
-			Wind Turbine
-			The dataset was obtained from the U.S. Geological Survey and can be found
+			Wind Turbine Database. The database was obtained from the U.S. Geological Survey and can be found
 			<a href="https://eerscmap.usgs.gov/uswtdb/">here.</a> Each popup displays descriptive information to give
 			the map user an overview of wind power in the state. Enjoy! 
 
@@ -253,7 +252,7 @@
 
 				layer.bindPopup(
 					`<h3>Name: ${feature["properties"]["p_name"]}</h3>
-				<b>Year installed:</b> ${feature["properties"]["p_year"]}<br> <b>Manufacturer:</b> ${feature["properties"]["t_manu"]}`
+				<b>Year installed:</b> ${feature["properties"]["p_year"]}<br> <b>Manufacturer:</b> ${feature["properties"]["t_manu"]} <br> <b>Number of turbines in this project:</b> ${feature["properties"]["p_tnum"]}`
 				)
 			}
 
