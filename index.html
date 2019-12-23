@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset=utf-8 />
-	<title>Module 10 - Project </title>
+	<title>Module 10 - MAP672 Final Project </title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 	<link rel='icon' href='https://newmapsplus.github.io/favicon.ico' type='image/x-icon' />
 
@@ -61,7 +61,7 @@
 			width: 280px;
 			padding: 0 15px;
 			/* Add styles to match Leaflet UI elements */
-			background: rgba(256, 256, 256, .3);
+			background: rgba(256, 256, 256, 1);
 			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 			border: 1px solid #ddd;
 			border-radius: 5px;
@@ -125,18 +125,23 @@
 
 <body>
 
-	<h1>Wind Turbines Capacity and Distribution in Illinois</h1>
+	<h1>Wind Turbine Capacity and Distribution in Illinois</h1>
 
 	<div id='map'></div>
 
 	<section id="about">
-		<h2>About this <map name=""></map></h2>
-		<p>Additional information about the U.S. Wind Turbine Database can be obtained from the U.S. Geological Survey
-			<a href="https://eerscmap.usgs.gov/uswtdb/">here.</a> Lorem ipsum dolor sit amet,
-			consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id
-			auctor lacus. Nam a dolor et justo luctus luctus.
-			attributes
-			Metadata dictionary for an explanation of these attributes.
+		<h2>About the Map <map name=""></map></h2>
+		<p>This map shows wind turbine projects throughout the state of Illinois. Additional information about the U.S. Wind Turbine
+			The dataset was obtained from the U.S. Geological Survey and can be found
+			<a href="https://eerscmap.usgs.gov/uswtdb/">here.</a> Each popup displays the following:
+			<ul>
+				<li>Wind power project name (p_name attribute)</li> 
+				<li>Year the wind power project became operational and began providing power (p_year attribute)</li>
+				<li>Turbine manufacturer (t_manu attribute)</li> 
+				<li>Note that each turbine is sized by the cumulative capacity of all turbines in the wind power project
+					(p_cap attribute), in megawatts (MW) - not the capacity of each individual turbine.</li>
+
+			</ul>
 
 
 
@@ -164,7 +169,7 @@
 		var locate_options = {
 			position: 'topright',
 			strings: {
-				title: "Show me where I am, yo!"
+				title: "Zoom Capability"
 			}
 		}
 
@@ -199,32 +204,31 @@
 			return radius * .8;
 		}
 
+		/*
+			// AJAX Method of loading a .json file
+			$.getJSON("data/illinois_turbines.json", function (data) {
 
-			/*
-				// AJAX Method with .json file
-				$.getJSON("data/illinois_turbines.json", function (data) {
+				// the data loaded from the file is accessible here within this function scope!
+			
+				var dataLayer = L.geoJson(data, {
+					pointToLayer: function (feature, latlng) {
+						return L.circleMarker(latlng, {
+							color: '#1f78b4',
+							fillColor: '#1f78b4',
+							weight: 1,
+							stroke: 1,
+							fillOpacity: .8,
+							radius: getRadius(feature["properties"]["p_cap"])
+						});
+					}
+				})
 
-					// the data loaded from the file is accessible here within this function scope!
-				
-					var dataLayer = L.geoJson(data, {
-						pointToLayer: function (feature, latlng) {
-							return L.circleMarker(latlng, {
-								color: '#1f78b4',
-								fillColor: '#1f78b4',
-								weight: 1,
-								stroke: 1,
-								fillOpacity: .8,
-								radius: getRadius(feature["properties"]["p_cap"])
-							});
-						}
-					})
+				dataLayer.addTo(map)
+				drawMap(dataLayer);
+			});
+			*/
 
-					dataLayer.addTo(map)
-					drawMap(dataLayer);
-				});
-				*/
 
-	
 
 		windLayer = L.geoJson(turbines, {
 			pointToLayer: function (feature, latlng) {
@@ -235,7 +239,8 @@
 					stroke: 1,
 					fillOpacity: .8,
 					radius: getRadius(feature["properties"][
-						"p_cap"]) // size based on p_cap (total production capacity of all turbines in the project)
+						"p_cap"
+					]) // size based on p_cap (total production capacity of all turbines in the project)
 				})
 
 			},
@@ -244,12 +249,11 @@
 
 				layer.bindPopup(
 					`<h3>Name: ${feature["properties"]["p_name"]}</h3>
-				<b>Year installed:</b> ${feature["properties"]["p_year"]}<br> <b>Manufacturer:</b> ${feature["properties"]["t_manu"]}`)
+				<b>Year installed:</b> ${feature["properties"]["p_year"]}<br> <b>Manufacturer:</b> ${feature["properties"]["t_manu"]}`
+					)
 			}
 
 		}).addTo(map);
-
-
 
 	</script>
 
