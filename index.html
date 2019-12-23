@@ -131,10 +131,14 @@
 
 	<section id="about">
 		<h2>About the Map <map name=""></map></h2>
-		<p>This map shows wind turbine projects throughout the state of Illinois. Additional information about the U.S. Wind Turbine
+		<p>This map shows wind turbine projects throughout the state of Illinois. Additional information about the U.S.
+			Wind Turbine
 			The dataset was obtained from the U.S. Geological Survey and can be found
-			<a href="https://eerscmap.usgs.gov/uswtdb/">here.</a> Each popup displays the following:
-			<ul>
+			<a href="https://eerscmap.usgs.gov/uswtdb/">here.</a> Each popup displays descriptive information to give
+			the map user an overview of wind power in the state. Enjoy! 
+
+			<!--
+<ul>
 				<li>Wind power project name (p_name attribute)</li> 
 				<li>Year the wind power project became operational and began providing power (p_year attribute)</li>
 				<li>Turbine manufacturer (t_manu attribute)</li> 
@@ -143,7 +147,7 @@
 
 			</ul>
 
-
+-->
 
 		</p>
 		<p>Map authored by Chris Peters</p>
@@ -250,11 +254,10 @@
 				layer.bindPopup(
 					`<h3>Name: ${feature["properties"]["p_name"]}</h3>
 				<b>Year installed:</b> ${feature["properties"]["p_year"]}<br> <b>Manufacturer:</b> ${feature["properties"]["t_manu"]}`
-					)
+				)
 			}
 
 		}).addTo(map);
-
 	</script>
 
 </body>
